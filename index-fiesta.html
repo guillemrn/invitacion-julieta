@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1er Cumpleaños de Julieta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue-light: #D4E8F8;
+            --blue-dark: #6CA6D9;
+            --pink-light: #FDE2E8;
+            --pink-dark: #F5B0C2;
+            --yellow-soft: #FEF3C7;
+            --yellow-btn: #FCD385;
+            --text-gray: #6B7280;
+            --text-blue: #5A8FBF;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text-gray);
+            background-color: #FDFBF7;
+            /* Patrón de fondo estilo confeti/estrellas CSS */
+            background-image: 
+                radial-gradient(var(--blue-light) 20%, transparent 20%),
+                radial-gradient(var(--pink-light) 20%, transparent 20%),
+                radial-gradient(var(--yellow-soft) 20%, transparent 20%);
+            background-position: 0 0, 50px 50px, 25px 75px;
+            background-size: 100px 100px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            margin-top: 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 4rem;
+            color: var(--blue-dark);
+            text-shadow: 3px 3px 0px #fff, 5px 5px 0px rgba(0,0,0,0.05);
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Decoración estrellas título */
+        h1::before, h1::after {
+            content: '★';
+            position: absolute;
+            color: var(--yellow-btn);
+            font-size: 2rem;
+            top: 10px;
+        }
+        h1::before { left: -40px; transform: rotate(-20deg); }
+        h1::after { right: -40px; transform: rotate(20deg); }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-blue);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .intro-text {
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto 20px;
+            line-height: 1.5;
+        }
+
+        /* Personajes flotantes (Marcadores) */
+        .mascot-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: -40px;
+            pointer-events: none;
+            position: relative;
+            z-index: 2;
+        }
+        .mascot {
+            width: 120px;
+            height: 140px;
+            background: rgba(255,255,255,0.5);
+            border: 2px dashed var(--blue-dark);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--blue-dark);
+        }
+
+        /* Botón Principal */
+        .btn-main {
+            background-color: var(--yellow-btn);
+            color: #7A5C28;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            box-shadow: 0 4px 0 #EBC075, 0 8px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            margin-bottom: 20px;
+            border: 2px solid #fff;
+        }
+        .btn-main:hover { transform: translateY(2px); box-shadow: 0 2px 0 #EBC075; }
+
+        /* --- CLOUD COUNTDOWN --- */
+        .cloud-wrapper {
+            background: white;
+            border-radius: 60px;
+            padding: 40px 20px;
+            box-shadow: 0 10px 30px rgba(108, 166, 217, 0.15);
+            margin: 40px auto;
+            max-width: 500px;
+            position: relative;
+            border: 4px dotted var(--blue-light); /* Efecto punteado borde nube */
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .timer-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 700;
+            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.1);
+        }
+        
+        .c-blue { background-color: var(--blue-dark); }
+        .c-pink { background-color: var(--pink-dark); }
+        .c-light { background-color: #A3D8F4; }
+
+        .time-num { font-size: 1.5rem; line-height: 1; }
+        .time-lbl { font-size: 0.6rem; text-transform: uppercase; margin-top: 2px; }
+
+        .event-details {
+            font-weight: 700;
+            color: var(--text-gray);
+            border-top: 2px dashed var(--pink-light);
+            padding-top: 15px;
+            display: inline-block;
+            width: 80%;
+        }
+
+        /* --- SECTIONS --- */
+        .section-title {
+            font-family: 'Fredoka', sans-serif;
+            color: var(--blue-dark);
+            font-size: 1.8rem;
+            margin: 50px 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .section-title::before, .section-title::after {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background: var(--pink-dark);
+            border-radius: 2px;
+        }
+
+        /* --- VENUE CARDS --- */
+        .venue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card-stitched {
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        /* El borde de costura interior */
+        .card-inner {
+            border: 2px dashed var(--blue-light);
+            border-radius: 15px;
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 120px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            margin: 15px 0;
+            object-fit: cover;
+            border: 1px solid #eee;
+        }
+
+        .btn-loc {
+            background: var(--yellow-btn);
+            color: #7A5C28;
+            padding: 8px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: auto;
+            border-bottom: 3px solid #EBC075;
+        }
+
+        /* --- GALLERY (POLAROIDS) --- */
+        .gallery-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 15px 15px 40px 15px; /* Más padding abajo estilo polaroid */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 280px;
+            transform: rotate(-3deg);
+            position: relative;
+            border-radius: 5px;
+        }
+
+        .polaroid:nth-child(2) { transform: rotate(2deg); }
+
+        .polaroid-img {
+            width: 100%;
+            height: 200px;
+            background-color: #eee;
+            border: 1px solid #ddd;
+            display: block;
+        }
+
+        /* Decoración: Clip o cinta adhesiva */
+        .clip {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: var(--pink-light);
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+
+        /* --- RSVP FOOTER --- */
+        .rsvp-section {
+            margin-top: 60px;
+            background-image: linear-gradient(to top, rgba(255,255,255,0.8), transparent);
+            padding: 40px 20px;
+            border-radius: 30px 30px 0 0;
+        }
+        
+        .mascot-bottom {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            /* Placeholder para Bluey jugando */
+            background: url('https://placehold.co/100x100/png?text=Bluey+Car'); 
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        /* Responsivo */
+        @media (max-width: 600px) {
+            h1 { font-size: 3rem; }
+            .mascot-container { display: none; } /* Ocultar en móviles si estorba */
+            .countdown { gap: 8px; }
+            .timer-circle { width: 60px; height: 60px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header class="header">
+            <div class="mascot-container">
+                <div class="mascot">Bluey Bebé<br>(Img PNG)</div>
+                <div class="mascot">Bingo Bebé<br>(Img PNG)</div>
+            </div>
+
+            <h1>Julieta</h1>
+            <div class="subtitle">¡Te invito a celebrar mi primer cumpleaños!</div>
+            <p class="intro-text">Ven y acompáñame a celebrar un día lleno de juegos y diversión. <br>¡Será muy especial si lo compartimos juntos!</p>
+            
+            <a href="#rsvp" class="btn-main">Confirma tu asistencia</a>
+        </header>
+
+        <section class="cloud-wrapper">
+            <div class="countdown">
+                <div class="timer-circle c-blue">
+                    <span class="time-num" id="dias">00</span>
+                    <span class="time-lbl">Días</span>
+                </div>
+                <div class="timer-circle c-pink">
+                    <span class="time-num" id="horas">00</span>
+                    <span class="time-lbl">Horas</span>
+                </div>
+                <div class="timer-circle c-light">
+                    <span class="time-num" id="mins">00</span>
+                    <span class="time-lbl">Mins</span>
+                </div>
+            </div>
+            <div class="event-details">
+                2 · Diciembre · 2026<br>
+                <span style="font-weight: 400; font-size: 0.9rem;">Guadalajara, Jalisco</span>
+            </div>
+        </section>
+
+        <h2 class="section-title">☁ Lugar del evento ☁</h2>
+        <div class="venue-grid">
+            <div class="card-stitched">
+                <div class="card-inner">
+                    <h3 style="color: var(--blue-dark);">Ceremonia</h3>
+                    <p style="font-size: 0.9rem;">Parroquia San Juan</p>
+                    <img src="https://placehold.co/300x150/D4E8F8/ffffff?text=Foto+Iglesia" class="card-img" alt="Iglesia">
+                    <a href="#" class="btn-loc">Ver ubicación</a>
+                </div>
+            </div>
+            <div class="card-stitched">
+                <div class="card-inner">
+                    <h3 style="color: var(--blue-dark);">Celebración</h3>
+                    <p style="font-size: 0.9rem;">Jardín "Las Nubes"</p>
+                    <img src="https://placehold.co/300x150/FDE2E8/ffffff?text=Foto+Salon" class="card-img" alt="Salón">
+                    <a href="#" class="btn-loc">Ver ubicación</a>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">★ Fotos familiares ★</h2>
+        <div class="gallery-wrapper">
+            <div class="polaroid">
+                <div class="clip">⭐</div>
+                <img src="https://placehold.co/300x300/eee/999?text=Julieta+1" class="polaroid-img" alt="Foto">
+                <div style="border: 2px dashed #fceabb; height: 100%; position: absolute; top:0; left:0; width: 100%; pointer-events: none; border-radius: 5px;"></div>
+            </div>
+            <div class="polaroid">
+                <div class="clip">❤️</div>
+                <img src="https://placehold.co/300x300/eee/999?text=Julieta+2" class="polaroid-img" alt="Foto">
+                 <div style="border: 2px dashed #f5d0d6; height: 100%; position: absolute; top:0; left:0; width: 100%; pointer-events: none; border-radius: 5px;"></div>
+            </div>
+        </div>
+
+        <div class="rsvp-section" id="rsvp">
+            <div class="mascot-bottom"></div> <h2 style="color: var(--blue-dark); margin-bottom: 10px;">Confirma asistencia</h2>
+            <p style="font-size: 0.9rem; max-width: 600px; margin: 0 auto 20px;">
+                Como objetivo de tener un ambiente organizado y brindar la mayor atención a nuestros invitados, hemos creado esta sección para confirmar tu asistencia.
+            </p>
+            <form style="max-width: 400px; margin: 0 auto;">
+                <input type="text" placeholder="Tu Nombre" style="width: 100%; padding: 12px; margin-bottom: 10px; border: 2px solid var(--blue-light); border-radius: 10px; font-family: inherit;">
+                <button class="btn-main" style="border: none; cursor: pointer; width: 100%;">¡Sí, voy a ir!</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        // Cuenta regresiva simple
+        const eventDate = new Date("December 2, 2026 12:00:00").getTime();
+
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById("dias").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("horas").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("mins").innerText = mins < 10 ? "0" + mins : mins;
+        }, 1000);
+    </script>
+</body>
+</html>
