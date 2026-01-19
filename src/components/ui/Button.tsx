@@ -14,7 +14,7 @@ interface ButtonProps extends HTMLMotionProps<"button"> {
 const Button: React.FC<ButtonProps> = ({ className, variant = 'primary', children, ...props }) => {
 
     // Base styles
-    const baseStyles = "inline-flex items-center justify-center font-black rounded-4xl transition-all select-none cursor-pointer active:scale-95";
+    const baseStyles = "inline-flex items-center justify-center font-black rounded-4xl transition-all select-none cursor-pointer active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100";
 
     // Variants with Puffy 3D effect (border-b-6px)
     const variants = {

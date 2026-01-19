@@ -42,7 +42,7 @@ const BackgroundPattern = () => {
 
     useEffect(() => {
         const generated: Position[] = [];
-        const maxTries = 100;
+        const maxTries = window.innerWidth < 768 ? 30 : 100;
 
         for (let i = 0; i < NUM_CHARACTERS; i++) {
             let tries = 0;

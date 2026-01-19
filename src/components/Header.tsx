@@ -47,12 +47,12 @@ const Header = () => {
                         )}
                     </h2>
 
-                    <a href="#rsvp" className="mb-10 block mt-8">
-                        <Button className="px-8 py-3 text-lg md:text-xl">Confirma tu asistencia</Button>
+                    <a href="#rsvp" className="mb-10 w-full px-6 md:w-auto block mt-8">
+                        <Button className="w-full md:w-auto px-8 py-4 text-xl">Confirma tu asistencia</Button>
                     </a>
 
                     {/* Countdown Integrated in Hero */}
-                    <div className="scale-75 md:scale-90 origin-top">
+                    <div className="w-full px-4 md:px-0 md:w-auto">
                         <Countdown />
                     </div>
                 </motion.div>

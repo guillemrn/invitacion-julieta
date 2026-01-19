@@ -1,11 +1,12 @@
 export interface GuestData {
+    fecha: string;
     nombre: string;
     cupos_totales: number;
     cupos_confirmados: number;
-    asistira: boolean;
+    estatus: string | boolean;
 }
 
-const WEBHOOK_URL = "https://hook.us1.make.com/your-webhook-id"; // Placeholder - User to replace
+const WEBHOOK_URL = "https://hook.us2.make.com/7m1ed1k71wyaxcc9e6j2dycvtjayjss7";
 
 export const sendRSVP = async (data: GuestData): Promise<void> => {
     try {

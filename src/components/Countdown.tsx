@@ -45,7 +45,7 @@ const Countdown = () => {
             initial={{ scale: 0.9, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", bounce: 0.4 }}
-            className="bg-white/90 backdrop-blur-md rounded-[40px] py-6 px-8 shadow-2xl mx-auto max-w-[600px] relative mt-6"
+            className="bg-white/90 backdrop-blur-md rounded-[40px] py-6 px-4 sm:px-8 shadow-2xl mx-auto w-full md:max-w-[600px] relative mt-6"
         >
             <div className="flex justify-center gap-3 sm:gap-6 mb-3 flex-wrap">
                 <TimeUnit value={timeLeft.days} label="Días" colorClass="bg-bluey-dark" />

@@ -1,44 +1,90 @@
 import { motion } from 'framer-motion';
 
-const SectionTitle = ({ children }: { children: React.ReactNode }) => (
-    <div className="flex items-center justify-center gap-4 my-12">
-        <h2 className="font-fredoka text-bluey-dark text-3xl font-bold">
-            {children}
-        </h2>
-    </div>
-);
+interface ItineraryItem {
+    time: string;
+    description: string;
+}
 
-const TimelineItem = ({ time, title, delay }: { time: string, title: string, delay: number }) => (
-    <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ delay, duration: 0.5 }}
-        className="flex gap-6 items-start relative pl-8 pb-12 last:pb-0"
-    >
-        {/* Line */}
-        <div className="absolute left-[10px] top-2 w-[6px] h-full bg-bluey-orange-light rounded-full -z-10 last:hidden"></div>
+const ITINERARY: ItineraryItem[] = [
+    { time: '1:00 PM', description: 'Llegada y Bienvenida' },
+    { time: '2:00 PM', description: 'Comida y Snacks' },
+    { time: '5:00 PM', description: 'Pastel y Piñata' },
+    { time: '7:00 PM', description: 'Fin del evento' }
+];
 
-        {/* Marker */}
-        <div className="absolute left-0 top-1 w-7 h-7 rounded-full bg-bluey-orange-light border-4 border-white shadow-sm flex-shrink-0"></div>
+const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2
+        }
+    }
+};
 
-        <div className="flex flex-col">
-            <span className="font-fredoka font-bold text-bluey-dark text-xl">{time}</span>
-            <span className="font-quicksand font-medium text-gray-600 text-lg">{title}</span>
-        </div>
-    </motion.div>
-);
+const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
 
 const Timeline = () => {
     return (
-        <section className="px-4 mb-24 max-w-2xl mx-auto">
-            <SectionTitle>Itinerario</SectionTitle>
+        <section className="px-4 py-20 max-w-2xl mx-auto relative overflow-hidden">
+            <h2 className="font-fredoka text-bluey-dark text-4xl md:text-5xl font-black text-center mb-16">
+                Itinerario
+            </h2>
 
-            <div className="ml-4 md:ml-0">
-                <TimelineItem time="12:30 PM" title="Ceremonia Religiosa" delay={0.1} />
-                <TimelineItem time="1:30 PM" title="Recepción en Jardín" delay={0.2} />
-                <TimelineItem time="2:30 PM" title="Comida" delay={0.3} />
-                <TimelineItem time="5:00 PM" title="Pastel y Piñata" delay={0.4} />
-                <TimelineItem time="8:00 PM" title="Fin del evento" delay={0.5} />
+            <div className="relative">
+                {/* Vertical Dotted Line */}
+                <div className="absolute left-[30px] md:left-1/2 top-0 bottom-0 w-[4px] border-l-4 border-dashed border-bluey-cream/60 -translate-x-[2px] z-0"></div>
+
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.2 }}
+                    className="flex flex-col gap-12 relative z-10"
+                >
+                    {ITINERARY.map((item, index) => {
+                        const isEven = index % 2 === 0;
+                        const bgColor = isEven ? 'bg-bluey-light' : 'bg-bluey-orange-light';
+                        const borderColor = isEven ? 'border-bluey-dark' : 'border-bluey-orange-dark';
+
+                        return (
+                            <motion.div
+                                key={index}
+                                variants={itemVariants}
+                                className={`flex flex-col md:flex-row items-center gap-6 md:gap-0 w-full ${isEven ? 'md:flex-row-reverse' : ''}`}
+                            >
+                                {/* Marker Dot on line */}
+                                <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-white border-4 border-bluey-cream z-20"></div>
+
+                                {/* Card Container */}
+                                <div className="w-full md:w-[45%]">
+                                    <div className={`
+                                        ${bgColor} 
+                                        ${borderColor} 
+                                        border-2 border-b-[6px] 
+                                        rounded-[2rem] 
+                                        p-6 md:p-8 
+                                        text-center 
+                                        transform transition-transform hover:scale-[1.02]
+                                    `}>
+                                        <div className="font-fredoka font-black text-3xl md:text-4xl text-bluey-dark mb-2">
+                                            {item.time}
+                                        </div>
+                                        <div className="font-quicksand font-bold text-lg md:text-xl text-bluey-dark/80">
+                                            {item.description}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Spacer for the other side on desktop */}
+                                <div className="hidden md:block md:w-[45%]"></div>
+                            </motion.div>
+                        );
+                    })}
+                </motion.div>
             </div>
         </section>
     );

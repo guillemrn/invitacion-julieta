@@ -6,6 +6,7 @@ import Gallery from './components/Gallery';
 import RSVP from './components/RSVP';
 import GiftRegistry from './components/GiftRegistry';
 import BackgroundPattern from './components/BackgroundPattern';
+import Footer from './components/Footer';
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -39,6 +40,7 @@ function App() {
                     <RSVP />
                 </motion.div>
             </main>
+            <Footer />
         </div>
     );
 }

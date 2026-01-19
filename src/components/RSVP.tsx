@@ -4,6 +4,7 @@ import Button from './ui/Button';
 import { sendRSVP } from '../services/rsvpService';
 import { Loader2, Check, Minus, Plus } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const RSVP = () => {
     const [searchParams] = useSearchParams();
@@ -11,8 +12,13 @@ const RSVP = () => {
     const guestName = searchParams.get('invitado') || '';
     const totalSpots = parseInt(searchParams.get('cupos') || '0', 10);
 
+    // Guard clause: Hide section if params are missing or invalid
+    if (!guestName || totalSpots <= 0) return null;
+
     const [confirmedSpots, setConfirmedSpots] = useState(1);
-    const [status, setStatus] = useState<'idle' | 'mode-selection' | 'counting' | 'sending' | 'success' | 'error'>('idle');
+    const [status, setStatus] = useState<'idle' | 'mode-selection' | 'counting' | 'success' | 'error'>('idle');
+    const [isSending, setIsSending] = useState(false);
+    const [alreadyConfirmed, setAlreadyConfirmed] = useState(false);
 
     // If no params, fallback to simple view or hide specific logic? 
     // Requirement says: "Si no hay nombre... saludo genérico" (handled in Header). 
@@ -21,14 +27,18 @@ const RSVP = () => {
     // or handle the "no param" case gracefully.
 
     useEffect(() => {
-        if (guestName && totalSpots > 0) {
-            setStatus('mode-selection');
-            setConfirmedSpots(totalSpots); // Default to max
-        } else {
-            // Fallback for direct access without params
-            // For now, let's keep it simple or maybe redirect/show generic
-            setStatus('mode-selection'); // Still show selection but maybe with defaults
+        if (!guestName || totalSpots <= 0) return;
+
+        // Check for existing confirmation
+        const confirmed = localStorage.getItem(`rsvp_confirmed_${guestName}`);
+        if (confirmed === 'true') {
+            setStatus('success');
+            setAlreadyConfirmed(true);
+            return;
         }
+
+        setStatus('mode-selection');
+        setConfirmedSpots(totalSpots); // Default to max
     }, [guestName, totalSpots]);
 
     const handleConfirmAll = () => {
@@ -49,18 +59,25 @@ const RSVP = () => {
     };
 
     const submitRSVP = async (spots: number) => {
-        setStatus('sending');
+        setIsSending(true);
         try {
             await sendRSVP({
+                fecha: new Date().toLocaleString(),
                 nombre: guestName || 'Invitado',
                 cupos_totales: totalSpots || 0,
                 cupos_confirmados: spots,
-                asistira: spots > 0
+                estatus: true
             });
+
+            // Persist success state
+            localStorage.setItem(`rsvp_confirmed_${guestName}`, 'true');
+
             setStatus('success');
         } catch (error) {
             console.error(error);
             setStatus('error');
+        } finally {
+            setIsSending(false);
         }
     };
 
@@ -76,7 +93,7 @@ const RSVP = () => {
                 {guestName ? (
                     <>
                         Hola <strong className="text-bluey-orange-dark">{guestName}</strong>, tienes{' '}
-                        <strong className="text-bluey-dark text-2xl">{totalSpots}</strong> boletos reservados para tu grupo.
+                        <strong className="text-bluey-dark text-2xl">{totalSpots}</strong> {totalSpots === 1 ? 'boleto reservado' : 'boletos reservados'} para tu grupo.
                     </>
                 ) : (
                     "Por favor confirma tu asistencia para acompañarnos en este día especial."
@@ -97,20 +114,30 @@ const RSVP = () => {
                                 onClick={handleConfirmAll}
                                 className="w-full px-8 py-6 text-lg md:text-2xl"
                                 variant="primary"
+                                disabled={isSending}
                             >
                                 <span className="flex items-center justify-center gap-3">
-                                    <Check size={32} strokeWidth={4} />
-                                    Confirmar los {totalSpots} lugares
+                                    {isSending ? (
+                                        <Loader2 size={32} className="animate-spin" />
+                                    ) : (
+                                        <Check size={32} strokeWidth={4} />
+                                    )}
+                                    {isSending ? 'Enviando...' : (
+                                        totalSpots === 1 ? 'Confirmar mi lugar' : `Confirmar los ${totalSpots} lugares`
+                                    )}
                                 </span>
                             </Button>
 
-                            <Button
-                                onClick={handlePartial}
-                                variant="orange"
-                                className="w-full px-6 py-5 text-md md:text-xl font-bold"
-                            >
-                                Solo asistiremos algunos
-                            </Button>
+                            {totalSpots > 1 && (
+                                <Button
+                                    onClick={handlePartial}
+                                    variant="orange"
+                                    disabled={isSending}
+                                    className="w-full px-6 py-5 text-md md:text-xl font-bold"
+                                >
+                                    Solo asistiremos algunos
+                                </Button>
+                            )}
                         </motion.div>
                     )}
 
@@ -151,10 +178,18 @@ const RSVP = () => {
                             <div className="flex flex-col gap-3">
                                 <Button
                                     onClick={() => submitRSVP(confirmedSpots)}
+                                    disabled={isSending}
                                     className="w-full px-8 py-4 text-xl"
-                                    variant="primary"
+                                    variant="orange"
                                 >
-                                    Confirmar {confirmedSpots} personas
+                                    {isSending ? (
+                                        <span className="flex items-center justify-center gap-2">
+                                            <Loader2 size={24} className="animate-spin" />
+                                            Enviando...
+                                        </span>
+                                    ) : (
+                                        `Confirmar ${confirmedSpots} ${confirmedSpots === 1 ? 'persona' : 'personas'}`
+                                    )}
                                 </Button>
 
                                 <button
@@ -167,35 +202,45 @@ const RSVP = () => {
                         </motion.div>
                     )}
 
-                    {status === 'sending' && (
-                        <motion.div
-                            key="sending"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="flex flex-col items-center justify-center py-10"
-                        >
-                            <Loader2 size={64} className="text-bluey-light animate-spin mb-4" />
-                            <p className="text-xl font-bold text-gray-500 font-quicksand">Enviando confirmación...</p>
-                        </motion.div>
-                    )}
+
 
                     {status === 'success' && (
                         <motion.div
                             key="success"
                             initial={{ scale: 0.8, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            className="flex flex-col items-center justify-center text-green-600 bg-green-50 rounded-3xl border-2 border-green-200 p-10 shadow-lg"
+                            className="relative overflow-hidden flex flex-col items-center justify-center text-bluey-dark bg-white/40 rounded-3xl border-2 border-bluey-cream p-10 shadow-2xl min-h-[350px]"
                         >
-                            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-4 shadow-sm">
-                                <Check size={40} className="text-green-600 stroke-[3px]" />
+                            {/* Capa de Fondo (La Animación) */}
+                            <div className="absolute inset-0 z-0">
+                                <DotLottieReact
+                                    src="/Celebration.lottie"
+                                    loop
+                                    autoplay
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                />
                             </div>
-                            <h3 className="font-black text-3xl font-fredoka mb-2">¡Confirmado!</h3>
-                            <p className="font-bold text-lg font-quicksand opacity-80">
-                                {confirmedSpots === 1 ? '1 lugar reservado.' : `${confirmedSpots} lugares reservados.`}
-                            </p>
-                            <p className="mt-2 text-sm text-center max-w-xs">
-                                Nos vemos el 22 de Febrero.
-                            </p>
+
+                            {/* Capa de Contenido (El Texto) Overlay más transparente */}
+                            <div className="relative z-10 p-4 rounded-2xl flex flex-col items-center max-w-[100%]">
+                                <h3 className="font-black text-4xl font-fredoka mb-4 text-center">
+                                    {alreadyConfirmed ? '¡Bienvenido de nuevo!' : '¡Confirmado!'}
+                                </h3>
+
+                                <p className="font-bold text-xl font-quicksand text-center leading-relaxed">
+                                    {alreadyConfirmed ? (
+                                        <>¡Qué alegría! Ya tenemos tu confirmación guardada.</>
+                                    ) : (
+                                        <>
+                                            <span className="text-bluey-orange-dark">{guestName}</span>, hemos reservado <span className="text-bluey-orange-dark text-2xl">{confirmedSpots}</span> {confirmedSpots === 1 ? 'lugar' : 'lugares'} para ti.
+                                        </>
+                                    )}
+                                </p>
+
+                                <p className="mt-6 text-md text-center opacity-90 font-bold bg-white/50 px-4 py-1 rounded-full">
+                                    ¡Nos vemos el 22 de Febrero para celebrar!
+                                </p>
+                            </div>
                         </motion.div>
                     )}
 
