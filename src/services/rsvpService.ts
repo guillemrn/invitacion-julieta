@@ -6,7 +6,7 @@ export interface GuestData {
     estatus: string | boolean;
 }
 
-const WEBHOOK_URL = "https://hook.us2.make.com/7m1ed1k71wyaxcc9e6j2dycvtjayjss7";
+const WEBHOOK_URL = import.meta.env.VITE_MAKE_WEBHOOK_URL;
 
 export const sendRSVP = async (data: GuestData): Promise<void> => {
     try {
