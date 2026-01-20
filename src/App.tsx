@@ -6,6 +6,7 @@ import Timeline from './components/Timeline';
 import RSVP from './components/RSVP';
 import GiftRegistry from './components/GiftRegistry';
 import BackgroundPattern from './components/BackgroundPattern';
+import SpotifyPlayer from './components/SpotifyPlayer';
 import Footer from './components/Footer';
 
 const containerVariants = {
@@ -38,6 +39,7 @@ function App() {
                     {/* <Gallery /> */}
                     <GiftRegistry />
                     <RSVP />
+                    <SpotifyPlayer />
                 </motion.div>
             </main>
             <Footer />
