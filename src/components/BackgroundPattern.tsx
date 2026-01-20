@@ -31,7 +31,6 @@ const CHARACTERS = [
     '/characters/pattern6.png',
     '/characters/pattern7.png',
     '/characters/pattern8.png',
-    '/characters/pattern9.png'
 
 ];
 
@@ -52,7 +51,7 @@ const BackgroundPattern = () => {
 
     useEffect(() => {
         const generated: Position[] = [];
-        const maxTries = window.innerWidth < 768 ? 30 : 100;
+        const maxTries = window.innerWidth < 768 ? 20 : 100;
 
         for (let i = 0; i < NUM_CHARACTERS; i++) {
             let tries = 0;

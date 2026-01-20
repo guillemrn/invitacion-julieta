@@ -12,7 +12,7 @@ const Header = () => {
             {/* Darker overlay for better text readability */}
             <div className="absolute inset-0 bg-black/60 z-0"></div>
 
-            <div className="relative z-10 flex flex-col items-center px-6 md:px-8 w-full h-full justify-center">
+            <div className="relative z-10 flex flex-col items-center px-4 md:px-8 w-full h-full justify-center">
                 {/* Casa Bluey Hero - Full Viewport */}
                 <motion.div
                     initial={{ y: 30, opacity: 0 }}
@@ -30,14 +30,14 @@ const Header = () => {
                         }}
                         className="mb-4"
                     >
-                        <h1 className="font-fredoka text-5xl md:text-8xl text-white drop-shadow-2xl leading-tight text-center">
+                        <h1 className="font-fredoka text-4xl md:text-8xl text-white drop-shadow-2xl leading-tight text-center">
                             ¡Nuestra pequeña <br className="md:hidden" />
-                            <span className="font-black text-6xl md:text-9xl">Julieta</span>
-                            <br className="md:hidden" /> cumple <span className="font-black text-6xl md:text-9xl">1</span>!
+                            <span className="font-black text-5xl md:text-9xl">Julieta</span>
+                            <br className="md:hidden" /> cumple <span className="font-black text-5xl md:text-9xl">1</span>!
                         </h1>
                     </motion.div>
 
-                    <h2 className="text-xl md:text-3xl text-white font-bold mb-8 drop-shadow-lg font-quicksand max-w-2xl px-2 md:px-0 leading-snug">
+                    <h2 className="text-lg md:text-3xl text-white font-bold mb-8 drop-shadow-lg font-quicksand max-w-2xl leading-snug px-2">
                         {guestName ? (
                             <>
                                 ¡<span className="font-black">{guestName}</span>, acompáñanos a celebrar un año lleno de juegos, magia y mucha diversión!
@@ -48,11 +48,11 @@ const Header = () => {
                     </h2>
 
                     <a href="#rsvp" className="mb-10 w-full px-6 md:w-auto block mt-8">
-                        <Button className="w-full md:w-auto px-8 py-4 text-xl">Confirma tu asistencia</Button>
+                        <Button className="w-full md:w-auto px-8 py-4 text-lg">Confirma tu asistencia</Button>
                     </a>
 
                     {/* Countdown Integrated in Hero */}
-                    <div className="w-full px-4 md:px-0 md:w-auto">
+                    <div className="w-full md:px-0 md:w-auto">
                         <Countdown />
                     </div>
                 </motion.div>

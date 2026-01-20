@@ -40,7 +40,7 @@ const Countdown = () => {
     }, []);
 
     const TimeUnit = ({ value, label, colorClass }: { value: number, label: string, colorClass: string }) => (
-        <div className={`w-[65px] h-[65px] sm:w-[85px] sm:h-[85px] rounded-full flex flex-col justify-center items-center text-white font-bold shadow-[inset_0_-3px_0_rgba(0,0,0,0.1)] ${colorClass}`}>
+        <div className={`w-[60px] h-[60px] sm:w-[85px] sm:h-[85px] rounded-full flex flex-col justify-center items-center text-white font-bold shadow-[inset_0_-3px_0_rgba(0,0,0,0.1)] ${colorClass}`}>
             <span className="text-xl sm:text-3xl leading-none font-fredoka">{value < 10 ? `0${value}` : value}</span>
             <span className="text-[0.6rem] sm:text-xs uppercase mt-1 font-quicksand">{label}</span>
         </div>
