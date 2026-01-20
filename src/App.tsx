@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import Header from './components/Header';
 import VenueList from './components/VenueList';
 import Timeline from './components/Timeline';
-import Gallery from './components/Gallery';
+// import Gallery from './components/Gallery';
 import RSVP from './components/RSVP';
 import GiftRegistry from './components/GiftRegistry';
 import BackgroundPattern from './components/BackgroundPattern';
