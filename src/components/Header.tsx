@@ -12,7 +12,7 @@ const Header = () => {
             {/* Darker overlay for better text readability */}
             <div className="absolute inset-0 bg-black/60 z-0"></div>
 
-            <div className="relative z-10 flex flex-col items-center px-4 w-full h-full justify-center">
+            <div className="relative z-10 flex flex-col items-center px-6 md:px-8 w-full h-full justify-center">
                 {/* Casa Bluey Hero - Full Viewport */}
                 <motion.div
                     initial={{ y: 30, opacity: 0 }}
@@ -37,7 +37,7 @@ const Header = () => {
                         </h1>
                     </motion.div>
 
-                    <h2 className="text-xl md:text-3xl text-white font-bold mb-8 drop-shadow-lg font-quicksand max-w-3xl leading-snug">
+                    <h2 className="text-xl md:text-3xl text-white font-bold mb-8 drop-shadow-lg font-quicksand max-w-2xl px-2 md:px-0 leading-snug">
                         {guestName ? (
                             <>
                                 ¡<span className="font-black">{guestName}</span>, acompáñanos a celebrar un año lleno de juegos, magia y mucha diversión!
