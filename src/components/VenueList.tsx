@@ -12,7 +12,7 @@ const SectionTitle = ({ children }: { children: React.ReactNode }) => (
     </div>
 );
 
-const VenueCard = ({ title, location, imageText, delay = 0 }: { title: string, location: string, imageText: string, delay?: number }) => (
+const VenueCard = ({ title, location, image, link, delay = 0 }: { title: string, location: string, image: string, link: string, delay?: number }) => (
     <motion.div
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -25,18 +25,19 @@ const VenueCard = ({ title, location, imageText, delay = 0 }: { title: string, l
             <p className="text-sm text-gray-500 mb-4">{location}</p>
 
             <div className="w-full h-[140px] bg-gray-100 rounded-xl mb-4 border border-gray-100 overflow-hidden relative">
-                {/* Placeholder Image */}
                 <img
-                    src={`https://placehold.co/600x300/e4dcbd/ffffff?text=${encodeURIComponent(imageText)}`}
+                    src={image}
                     alt={title}
                     className="w-full h-full object-cover"
                 />
             </div>
 
             <div className="mt-auto">
-                <Button variant="orange" className="px-5 py-2 text-sm">
-                    Ver ubicación
-                </Button>
+                <a href={link} target="_blank" rel="noopener noreferrer">
+                    <Button variant="orange" className="px-5 py-2 text-sm cursor-pointer">
+                        Ver ubicación
+                    </Button>
+                </a>
             </div>
         </div>
     </motion.div>
@@ -95,9 +96,10 @@ const VenueList = () => {
                 {/* Central Card */}
                 <div className="relative z-0">
                     <VenueCard
-                        title="Celebración"
-                        location='Jardín "Las Nubes"'
-                        imageText="Foto Salón"
+                        title="¡Los esperamos en casa!"
+                        location='La casa de Julieta se llena de alegría para celebrar su primer año.'
+                        image="/bg-salon.png"
+                        link="https://maps.app.goo.gl/Rp1kvsXvQ8N31r3W6"
                         delay={0.3}
                     />
                 </div>

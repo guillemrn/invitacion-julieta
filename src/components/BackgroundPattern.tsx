@@ -22,7 +22,17 @@ const CHARACTERS = [
     '/characters/Unicorse.png',
     '/characters/Untitled-1.png',
     '/characters/Winton.png',
-    '/characters/bingo.png'
+    '/characters/bingo.png',
+    '/characters/pattern1.png',
+    '/characters/pattern2.png',
+    '/characters/pattern3.png',
+    '/characters/pattern4.png',
+    '/characters/pattern5.png',
+    '/characters/pattern6.png',
+    '/characters/pattern7.png',
+    '/characters/pattern8.png',
+    '/characters/pattern9.png'
+
 ];
 
 interface Position {

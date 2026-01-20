@@ -35,7 +35,7 @@ function App() {
                 >
                     <VenueList />
                     <Timeline />
-                    <Gallery />
+                    {/* <Gallery /> */}
                     <GiftRegistry />
                     <RSVP />
                 </motion.div>

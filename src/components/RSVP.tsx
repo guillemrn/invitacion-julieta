@@ -83,7 +83,7 @@ const RSVP = () => {
 
     return (
         <footer id="rsvp" className="mt-16 bg-gradient-to-t from-white/80 to-transparent pt-10 px-5 rounded-t-[30px] pb-10">
-            <div className="w-[150px] h-[150px] mx-auto mb-4 bg-contain bg-no-repeat bg-center" style={{ backgroundImage: "url('/Heeler-Car-1.png')" }}></div>
+            <div className="w-[200px] h-[200px] mx-auto mb-4 bg-contain bg-no-repeat bg-center" style={{ backgroundImage: "url('/Heeler-Car-1.png')" }}></div>
 
             <h2 className="text-bluey-dark font-black text-4xl mb-4 text-center font-fredoka">
                 Confirmar Asistencia
@@ -93,7 +93,7 @@ const RSVP = () => {
                 {guestName ? (
                     <>
                         Hola <strong className="text-bluey-orange-dark">{guestName}</strong>, tienes{' '}
-                        <strong className="text-bluey-dark text-2xl">{totalSpots}</strong> {totalSpots === 1 ? 'boleto reservado' : 'boletos reservados'} para tu grupo.
+                        <strong className="text-bluey-dark text-2xl">{totalSpots}</strong> {totalSpots === 1 ? 'boleto reservado para ti.' : 'boletos reservados para tu grupo.'}
                     </>
                 ) : (
                     "Por favor confirma tu asistencia para acompañarnos en este día especial."
