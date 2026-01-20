@@ -34,12 +34,12 @@ function App() {
                     viewport={{ once: true, amount: 0.1 }}
                     className="container mx-auto px-4 py-5 max-w-7xl relative z-20"
                 >
+                    <SpotifyPlayer />
                     <VenueList />
                     <Timeline />
                     {/* <Gallery /> */}
                     <GiftRegistry />
                     <RSVP />
-                    <SpotifyPlayer />
                 </motion.div>
             </main>
             <Footer />
