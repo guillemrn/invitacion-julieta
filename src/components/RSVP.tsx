@@ -303,7 +303,7 @@ const RSVP = () => {
                                         className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#F1F5F9] hover:bg-[#E2E8F0] text-[#475569] rounded-2xl font-bold transition-all shadow-md active:scale-95 cursor-pointer text-sm"
                                     >
                                         <Download size={18} />
-                                        Añadir a iCal / Outlook
+                                        Añadir a Apple Calendar
                                     </button>
                                 </div>
                             </div>
