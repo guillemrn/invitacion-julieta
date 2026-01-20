@@ -5,6 +5,7 @@ import { sendRSVP } from '../services/rsvpService';
 import { Loader2, Check, Minus, Plus } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import SectionTitle from './ui/SectionTitle';
 
 const RSVP = () => {
     const [searchParams] = useSearchParams();
@@ -85,9 +86,7 @@ const RSVP = () => {
         <footer id="rsvp" className="mt-16 bg-gradient-to-t from-white/80 to-transparent pt-10 px-5 rounded-t-[30px] pb-10">
             <div className="w-[200px] h-[200px] mx-auto mb-4 bg-contain bg-no-repeat bg-center" style={{ backgroundImage: "url('/Heeler-Car-1.png')" }}></div>
 
-            <h2 className="text-bluey-dark font-black text-4xl mb-4 text-center font-fredoka">
-                Confirmar Asistencia
-            </h2>
+            <SectionTitle>Confirmar Asistencia</SectionTitle>
 
             <p className="text-xl text-gray-600 max-w-[600px] mx-auto mb-10 text-center leading-relaxed font-quicksand font-medium">
                 {guestName ? (

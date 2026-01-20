@@ -1,16 +1,6 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import Button from './ui/Button';
-
-const SectionTitle = ({ children }: { children: React.ReactNode }) => (
-    <div className="flex items-center justify-center gap-2.5 my-12">
-        <div className="w-10 h-0.5 bg-pink-dark rounded-sm"></div>
-        <h2 className="font-fredoka text-bluey-dark text-3xl font-bold flex items-center gap-2">
-            {children}
-        </h2>
-        <div className="w-10 h-0.5 bg-pink-dark rounded-sm"></div>
-    </div>
-);
+import SectionTitle from './ui/SectionTitle';
 
 const VenueCard = ({ title, location, image, link, delay = 0 }: { title: string, location: string, image: string, link: string, delay?: number }) => (
     <motion.div

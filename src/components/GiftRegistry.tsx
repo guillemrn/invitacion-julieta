@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import Button from './ui/Button';
+import SectionTitle from './ui/SectionTitle';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Gift, ShoppingBag } from 'lucide-react';
 
@@ -24,9 +25,7 @@ const GiftRegistry = () => {
                         />
                     </div>
 
-                    <h2 className="font-fredoka font-black text-3xl md:text-4xl text-bluey-dark mb-4 text-shadow-sm">
-                        Mesa de Regalos
-                    </h2>
+                    <SectionTitle className="mb-8">Mesa de Regalos</SectionTitle>
 
                     <p className="font-quicksand font-medium text-lg text-gray-600 mb-8 max-w-md mx-auto leading-relaxed">
                         El mejor regalo es tu presencia. <br />

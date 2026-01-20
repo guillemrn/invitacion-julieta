@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import SectionTitle from './ui/SectionTitle';
 
 interface ItineraryItem {
     time: string;
@@ -30,9 +31,7 @@ const itemVariants = {
 const Timeline = () => {
     return (
         <section className="px-4 py-20 max-w-2xl mx-auto relative overflow-hidden">
-            <h2 className="font-fredoka text-bluey-dark text-4xl md:text-5xl font-black text-center mb-16">
-                Itinerario
-            </h2>
+            <SectionTitle>Itinerario</SectionTitle>
 
             <div className="relative">
                 {/* Vertical Dotted Line */}
