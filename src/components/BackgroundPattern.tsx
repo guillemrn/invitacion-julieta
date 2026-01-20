@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 const CHARACTERS = [
     '/characters/Bandit.png',
     '/characters/Bluey.png',
-    '/characters/Brandy.png',
     '/characters/Chat-Large.png',
     '/characters/Chilli.png',
     '/characters/Coco.png',
@@ -31,6 +30,9 @@ const CHARACTERS = [
     '/characters/pattern6.png',
     '/characters/pattern7.png',
     '/characters/pattern8.png',
+    '/characters/ballons.png',
+    '/characters/bb-fiesta.png',
+    '/characters/bluey-bingo.png'
 
 ];
 
