@@ -6,6 +6,8 @@ import { Loader2, Check, Minus, Plus } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import SectionTitle from './ui/SectionTitle';
+import { generateGoogleCalendarLink, downloadIcsFile } from '../utils/calendar';
+import { Calendar, Download } from 'lucide-react';
 
 const RSVP = () => {
     const [searchParams] = useSearchParams();
@@ -282,6 +284,28 @@ const RSVP = () => {
                                 <p className="mt-6 text-md text-center opacity-90 font-bold bg-white/50 px-4 py-1 rounded-full">
                                     ¡Nos vemos el 22 de Febrero para celebrar!
                                 </p>
+
+                                <div className="mt-8 flex flex-col gap-3 w-full max-w-[280px]">
+                                    <a
+                                        href={generateGoogleCalendarLink()}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-full"
+                                    >
+                                        <button className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#E0F2FE] hover:bg-[#BAE6FD] text-[#0369A1] rounded-2xl font-bold transition-all shadow-md active:scale-95 cursor-pointer text-sm">
+                                            <Calendar size={18} />
+                                            Añadir a Google Calendar
+                                        </button>
+                                    </a>
+
+                                    <button
+                                        onClick={downloadIcsFile}
+                                        className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#F1F5F9] hover:bg-[#E2E8F0] text-[#475569] rounded-2xl font-bold transition-all shadow-md active:scale-95 cursor-pointer text-sm"
+                                    >
+                                        <Download size={18} />
+                                        Añadir a iCal / Outlook
+                                    </button>
+                                </div>
                             </div>
                         </motion.div>
                     )}
