@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const CHARACTERS = [
-    '/characters/Bandit.png',
     '/characters/Bluey.png',
     '/characters/Chat-Large.png',
-    '/characters/Chilli.png',
     '/characters/Coco.png',
     '/characters/Honey.png',
     '/characters/InDY.png',

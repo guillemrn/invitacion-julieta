@@ -100,6 +100,49 @@ const RSVP = () => {
             </p>
 
             <div className="max-w-[500px] mx-auto min-h-[200px] relative">
+                {/* Bluey - Left Decoration */}
+                <motion.img
+                    src="characters/bluey-bingo.png"
+                    alt="Bluey"
+                    initial={{ scale: 0, opacity: 0, x: -20 }}
+                    whileInView={{ scale: 1, opacity: 1, x: 0 }}
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{
+                        scale: { duration: 0.5, type: "spring" },
+                        y: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                    }}
+                    className="absolute -left-16 -bottom-8 w-32 md:w-48 md:-left-55 md:bottom-0 z-10 hidden sm:block"
+                />
+                {/* Mobile: Smaller & Cornered */}
+                <motion.img
+                    src="characters/bluey-bingo.png"
+                    alt="Bluey"
+                    className="absolute -left-6 -bottom-6 w-18 sm:hidden z-20 pointer-events-none"
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                />
+
+                {/* Bingo - Right Decoration */}
+                <motion.img
+                    src="characters/bb-fiesta.png"
+                    alt="Bingo"
+                    initial={{ scale: 0, opacity: 0, x: 20 }}
+                    whileInView={{ scale: 1, opacity: 1, x: 0 }}
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{
+                        scale: { duration: 0.5, type: "spring", delay: 0.2 },
+                        y: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }
+                    }}
+                    className="absolute -right-16 -bottom-8 w-28 md:w-44 md:-right-50 md:bottom-0 z-10 hidden sm:block"
+                />
+                {/* Mobile: Smaller & Cornered */}
+                <motion.img
+                    src="characters/bb-fiesta.png"
+                    alt="Bingo"
+                    className="absolute -right-6 -bottom-6 w-20 sm:hidden z-20 pointer-events-none"
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                />
                 <AnimatePresence mode='wait'>
                     {status === 'mode-selection' && (
                         <motion.div
