@@ -33,7 +33,7 @@ const GiftRegistry = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-6 justify-center items-center w-full">
-                        <a href="#" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+                        <a href="https://mesaderegalos.liverpool.com.mx/milistaderegalos/51938531" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
                             <Button className="w-full sm:w-auto px-6 py-3" variant="primary">
                                 <span className="flex items-center gap-3 justify-center">
                                     <Gift size={20} />
